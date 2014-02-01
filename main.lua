@@ -1,4 +1,11 @@
 
+--TODO
+-- • Only bounce off paddle from the front
+-- • Better paddle bounces
+-- • Large numbers in each box for score
+-- • Game State
+
+
 function love.load()
 	love.graphics.newFont( 62 )
 	love.window.setTitle("A Coinye Quest")
@@ -17,6 +24,7 @@ function love.load()
 	xv = 5
 	yv = 3
 	poney = 250
+	ptwoy = 250
 	bg = backg
 	gtime = love.timer.getTime()
 	ptime = gtime
@@ -38,6 +46,7 @@ end
 function love.draw()
 	love.graphics.draw(bg)
 	playerOne();
+	playerTwo();
 	love.graphics.setColor(250,250,250)
 	love.graphics.draw(coinye,imgx,imgy,rotation,0.1,0.1,width/2,height/2)
 	rotation = rotation + .01
@@ -48,17 +57,30 @@ end
 function bounce()
 	bouncex = love.window.getWidth()-20
 	bouncey = love.window.getHeight()-45
-
+	--score on right
 	if (imgx  > bouncex) then
 		xv = -1*xv
 		gtime = love.timer.getTime()
 		bg = rightscore
 		scoretwo = scoretwo + 1
 	end
+	--score on left
+	if (imgx < 20) then
+		xv = -1*xv
+		gtime = love.timer.getTime()
+		bg = leftscore
+		scoreone = scoreone + 1
+		--Put ball in on paddle, wait till enter is pressed
+	end
+	--bounce off top and bottom walls
+	if (imgy > bouncey) or (imgy < 45) then
+		yv = -1*yv
+	end
+	--bounce off paddle one (left)
 	if (imgx < 70) and ((poney + 50) >= imgy) and (poney <= imgy) then
 		if(imgy <= poney +50) and (imgy >poney+35) then
 			if yv < 0 then
-				yv = -8
+				yv = 4
 			else 
 				yv = 8
 			end
@@ -66,7 +88,7 @@ function bounce()
 			if yv < 0 then
 				yv = -8
 			else 
-				yv = 8
+				yv = 4
 			end
 		elseif (imgy >= poney + 15) and (imgy <=poney+35)then
 			if yv < 0 then
@@ -78,31 +100,56 @@ function bounce()
 		xv = -1 * xv
 	end
 
-	if (imgx < 20) then
-		xv = -1*xv
-		gtime = love.timer.getTime()
-		bg = leftscore
-		scoreone = scoreone + 1
+	--bounce off paddle two (right)
+	if (imgx > bouncex - 20) and ((poney + 50) >= imgy) and (poney <= imgy) then
+		if(imgy <= poney +50) and (imgy >poney+35) then
+			if yv < 0 then
+				yv = 4
+			else 
+				yv = 8
+			end
+		elseif(imgy >= poney) and (imgy <poney+15) then
+			if yv < 0 then
+				yv = -8
+			else 
+				yv = 4
+			end
+		elseif (imgy >= poney + 15) and (imgy <=poney+35)then
+			if yv < 0 then
+				yv = -3
+			else 
+				yv = 3
+			end
+		end
+		xv = -1 * xv
 	end
 
-	if (imgy > bouncey) or (imgy < 45) then
-		yv = -1*yv
-	end
+	
 end
 
 
 function playerOne()
 	love.graphics.setColor(200,200,200)
 	pone = love.graphics.rectangle("fill",25,poney,20,50)
-
+end
+function playerTwo()
+	love.graphics.setColor(200,200,200)
+	ptwo = love.graphics.rectangle("fill",755,ptwoy,20,50)
 end
 
 function move()
-	if love.keyboard.isDown("up") and poney > 30 then
+	if love.keyboard.isDown("w") and poney > 30 then
 		poney = poney - 8
+		
+	end
+	if love.keyboard.isDown("s") and poney < 426 then
+		poney = poney + 8
+	end
+	if love.keyboard.isDown("up") and ptwoy > 30 then
+		ptwoy = ptwoy -8
 	end
 	if love.keyboard.isDown("down") and poney < 426 then
-		poney = poney + 8
+		ptwoy = ptwoy + 8
 	end
 end
 
