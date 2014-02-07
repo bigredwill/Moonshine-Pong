@@ -7,7 +7,7 @@
 
 
 function love.load()
-	love.graphics.newFont( 62 )
+	love.graphics.newFont( 100 )
 	love.window.setTitle("A Coinye Quest")
 	love.window.setMode(800,500)
 	backg = love.graphics.newImage("bg1.png")
@@ -25,7 +25,6 @@ function love.load()
 	yv = 3
 	poney = 250
 	ptwoy = 250
-	bg = backg
 	gtime = love.timer.getTime()
 	ptime = gtime
 	scoreone = 0
@@ -44,7 +43,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.draw(bg)
+	love.graphics.draw(backg)
 	playerOne();
 	playerTwo();
 	love.graphics.setColor(250,250,250)
@@ -146,9 +145,9 @@ function move()
 		poney = poney + 8
 	end
 	if love.keyboard.isDown("up") and ptwoy > 30 then
-		ptwoy = ptwoy -8
+		ptwoy = ptwoy - 8
 	end
-	if love.keyboard.isDown("down") and poney < 426 then
+	if love.keyboard.isDown("down") and ptwoy < 426 then
 		ptwoy = ptwoy + 8
 	end
 end
