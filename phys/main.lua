@@ -101,10 +101,13 @@ function addVelocity()
 	local x,y = objects.ball.body:getLinearVelocity()
 	if x < 0 and y < 0 then
 		objects.ball.body:setLinearVelocity(x-100,y - 200)
+		print "hey"
 	elseif x < 0 and y > 0 then
 		objects.ball.body:setLinearVelocity(x+100,y + 100)
+		print "there"
 	elseif x > 0 and y > 0 then
 		objects.ball.body:setLinearVelocity(x+100,y + 200)
+		print "fuck"
 	else
 			print "this ain't working"
 			objects.ball.body:setLinearVelocity(x+100,y - 200)
