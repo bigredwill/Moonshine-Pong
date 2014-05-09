@@ -6,13 +6,11 @@
 -- • Game State
 
 	--load images
-	-- local trial = loadImage('http://www.lua.org/images/lua.gif')
-	-- print(type(trial), trial.width..'x'..trial.height)
 
 	-- backg = love.graphics.newImage("images/bg1.png")
 	-- leftscore = love.graphics.newImage("images/bg2.png")
 	-- rightscore = love.graphics.newImage("images/bg3.png")
-	-- coinye = love.graphics.newImage("images/coinye.png")
+	coinye = love.graphics.newImage("images/coinye.png")
 
 
 function love.load()
@@ -69,7 +67,7 @@ end
 
 function love.update(dt)
 	move()
-	if (ptime - gtime) > 1 then
+	if (ptime - gtime) > 10 then
 		bg = 0
 	end
 	imgx = imgx + xv * dt * 100
@@ -105,8 +103,11 @@ function love.draw()
 	drawBoard()
 
 	love.graphics.setColor(250,250,250)
-	love.graphics.circle("fill", imgx, imgy, 20, 5)
-	-- love.graphics.draw(coinye,imgx,imgy,rotation,0.1,0.1,coinWidth/2,coinheight/2)
+	--draw circle
+	--draw coinye
+	-- love.graphics.draw(coinye,imgx,imgy,rotation,0.1,0.1,-coinWidth/2*0.1,-coinheight/2*0.1)
+	love.graphics.draw(coinye,imgx,imgy,0, 0.1, 0.1, 694*0.1*5, 562*0.1*5)
+	-- love.graphics.circle("fill", imgx, imgy, 20, 5)
 	rotation = rotation + .01
 end
 
@@ -166,7 +167,7 @@ function bounce()
 
 	--bounce off paddle one (left)
 	if((imgy  >= poney) and (imgy <=poney+pheight)) then
-		if((imgx - 15<= ponex + pwidth)) then
+		if((imgx - 20<= ponex + pwidth)) then
 			yv = yv + math.random(-1,1)
 			xv = math.abs(xv)
 		end
