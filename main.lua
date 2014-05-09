@@ -7,9 +7,6 @@
 
 	--load images
 
-	-- backg = love.graphics.newImage("images/bg1.png")
-	-- leftscore = love.graphics.newImage("images/bg2.png")
-	-- rightscore = love.graphics.newImage("images/bg3.png")
 	coinye = love.graphics.newImage("images/coinye.png")
 
 
@@ -22,21 +19,16 @@ function love.load()
 	cash = love.graphics.newFont("Cash Currency.ttf", 400)
 	-- smaller font
 	smallcash = love.graphics.newFont("Cash Currency.ttf", 200)
-	love.graphics.setFont(cash)
+	love.graphics.setFont(smallcash)
 
 	--coin initial position
 	imgx = 400
 	imgy = 400
+
 	--width/coinheight coin
-	-- coinWidth = coinye:getWidth()
-	-- coinheight = coinye:getHeight()
 	coinWidth = 20
 	coinheight = 20
 	rotation = 0.1
-
-	--font
-	love.graphics.setFont(cash)
-
 
 	love.keyboard.setKeyRepeat(true)
 	--initial coin speed
@@ -75,27 +67,15 @@ function love.update(dt)
 	bounce()
 	ptime = love.timer.getTime()
 
+	
+
 end
 
 function love.draw()
 
-
 	love.graphics.setColor(10,250,10)
-	if(scoreone > 9) then
-		love.graphics.setFont(smallcash)
-		love.graphics.print(scoreone, 60, 100)
-	else
-		love.graphics.setFont(cash)
-		love.graphics.print(scoreone, 60, 100)
-	end
-    if(scoreone > 9) then
-
-    	love.graphics.setFont(smallcash)
-		love.graphics.print(scoretwo, love.window.getWidth()/2+60,100)
-	else
-		love.graphics.setFont(cash)
-		love.graphics.print(scoretwo, love.window.getWidth()/2+60,100)
-	end
+	love.graphics.print(scoretwo, 60,100)
+	love.graphics.print(scoreone, love.window.getWidth()/2+60, 100)
 
 	playerOne()
 	playerTwo()
@@ -103,11 +83,8 @@ function love.draw()
 	drawBoard()
 
 	love.graphics.setColor(250,250,250)
-	--draw circle
 	--draw coinye
-	-- love.graphics.draw(coinye,imgx,imgy,rotation,0.1,0.1,-coinWidth/2*0.1,-coinheight/2*0.1)
 	love.graphics.draw(coinye,imgx,imgy,0, 0.1, 0.1, 694*0.1*5, 562*0.1*5)
-	-- love.graphics.circle("fill", imgx, imgy, 20, 5)
 	rotation = rotation + .01
 end
 
