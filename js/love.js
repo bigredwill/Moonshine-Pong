@@ -457,7 +457,7 @@
   Image = (function() {
     function Image(path) {
       this.element = document.createElement("img");
-      this.element.setAttribute("src", "lua/" + path);
+      this.element.setAttribute("src", path);
     }
 
     Image.prototype.getData = function(self) {};
