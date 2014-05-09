@@ -72,8 +72,8 @@ function love.update(dt)
 	if (ptime - gtime) > 1 then
 		bg = 0
 	end
-	imgx = imgx + xv
-	imgy = imgy + yv
+	imgx = imgx + xv * dt * 100
+	imgy = imgy + yv * dt * 100
 	bounce()
 	ptime = love.timer.getTime()
 
@@ -85,7 +85,7 @@ function love.draw()
 	love.graphics.setColor(10,250,10)
 	if(scoreone > 9) then
 		love.graphics.setFont(smallcash)
-		love.graphics.print(scoreone, 60, 100)	
+		love.graphics.print(scoreone, 60, 100)
 	else
 		love.graphics.setFont(cash)
 		love.graphics.print(scoreone, 60, 100)
@@ -121,19 +121,19 @@ function drawBoard()
 		love.graphics.rectangle("fill", 0, 0, love.window.getWidth(), 20)
 	    love.graphics.rectangle("fill", 0, love.window.getHeight()-20, love.window.getWidth(), 20)
 		love.graphics.setColor(250,250,250)
-		love.graphics.rectangle("fill", 0, 20, 20, love.window.getHeight()-20)	
+		love.graphics.rectangle("fill", 0, 20, 20, love.window.getHeight()-20)
 	elseif(bg == 2) then
 		love.graphics.setColor(250,250,250)
 		love.graphics.rectangle("fill", love.window.getWidth()-20, 0, 20, love.window.getHeight())
 		love.graphics.setColor(200,100,255)
-		love.graphics.rectangle("fill", 0, 0, 20, love.window.getHeight())	
+		love.graphics.rectangle("fill", 0, 0, 20, love.window.getHeight())
 
 		love.graphics.rectangle("fill", 0, 0, love.window.getWidth(), 20)
 		love.graphics.rectangle("fill", 0, love.window.getHeight()-20, love.window.getWidth(), 20)
 	else
-		
+
 		love.graphics.rectangle("fill", love.window.getWidth()-20, 0, 20, love.window.getHeight())
-		love.graphics.rectangle("fill", 0, 0, 20, love.window.getHeight())	
+		love.graphics.rectangle("fill", 0, 0, 20, love.window.getHeight())
 	end
 end
 
@@ -170,7 +170,7 @@ function bounce()
 			yv = yv + math.random(-1,1)
 			xv = math.abs(xv)
 		end
-		
+
 	end
 
 	--bounce off paddle two (right)
@@ -178,7 +178,7 @@ function bounce()
 		if((imgx + 20 >= ptwox)) then
 			yv = yv + math.random(-1,1)
 			xv = math.abs(xv) * -1
-		end	
+		end
 	end
 
 end
@@ -194,18 +194,19 @@ function playerTwo()
 end
 
 function move()
+	local delta = love.timer.getDelta()
 	if love.keyboard.isDown("w") and poney > 30 then
-		poney = poney - 8
-		
+		poney = poney - 800 * delta
+
 	end
 	if love.keyboard.isDown("s") and poney < 426 then
-		poney = poney + 8
+		poney = poney + 800 * delta
 	end
 	if love.keyboard.isDown("up") and ptwoy > 30 then
-		ptwoy = ptwoy - 8
+		ptwoy = ptwoy - 800 * delta
 	end
 	if love.keyboard.isDown("down") and ptwoy < 426 then
-		ptwoy = ptwoy + 8
+		ptwoy = ptwoy + 800 * delta
 	end
 end
 
